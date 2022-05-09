@@ -7,9 +7,14 @@
     "dev": "NODE_ENV=development nodemon ./bin/www"
   },
   "dependencies": {
+    "codemirror": "^5.65.3",
     "debug": "^4.3.3",
+    "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^6.3.2",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
