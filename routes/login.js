@@ -1,18 +1,22 @@
 const express = require("express");
+const passport = require("passport");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  res.status(200).render("login", {
-    title: "login",
-  });
+  try {
+    res.status(200).render("login", {
+      title: "login",
+    });
+  } catch(error) {
+    console.log(error.message);
+  }
 });
 
-router.post("/normal-login", (req, res, next) => {
-  const { id, password } = req.body;
-  console.log(id, password);
-
-  res.send("normal login");
-});
+router.post("/normal-login", passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/login",
+  failureFlash: true,
+}));
 
 router.post("/social-login", (req, res, next) => {
   try {

@@ -1,4 +1,7 @@
 <h1><%= title %></h1>
+<% if (messages.error) { %>
+  <%= messages.error %>
+<% } %>
 <form class="login-form" action="/login/normal-login" method="POST">
   <label for="id" >id</label>
   <input type="text" id="id" name="id" required />
@@ -6,7 +9,8 @@
   <input type="password" id="password" name="password" required />
   <button type="submit">submit</button>
 </form>
-<form class="social-login-form" action="/login/social-login" method="GET">
+<!-- <form class="social-login-form" action="/login/social-login" method="GET">
   <h1>Sign in with google</h1>
   <button type="submit">log in with your google account</button>
-</form>
+</form> -->
+<a href="/register">Sign Up</a>

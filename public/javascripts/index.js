@@ -6,7 +6,7 @@ const textarea = document.querySelector("#code-mirror");
 if (backBtn) {
   backBtn.addEventListener("click", () => {
     window.history.back();
-  })
+  });
 }
 
 if (textarea) {
