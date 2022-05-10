@@ -1,30 +1,77 @@
 const express = require("express");
-const router = express.Router();
+const CustomError = require("../utils/CustomError");
+const { ERROR_IS_IN_SUBMISSION } = require("../utils/config");
 const {
   getAllProblems,
   getProblem,
 } = require("../controllers/problems.controller");
 
-router.get("/", async (req, res, next) => {
-  const problems = await getAllProblems();
+const router = express.Router();
 
-  res.render("index", {
-    problems,
-  });
+router.get("/", async (req, res, next) => {
+  try {
+    const problems = await getAllProblems();
+
+    res.status(200).render("index", {
+      problems,
+    });
+  } catch (error) {
+    next(new CustomError(error, 404));
+  }
 });
 
 router.get("/problems/:problem_id", async (req, res, next) => {
-  const problemId = req.params.problem_id;
-  const problem = await getProblem(problemId);
+  try {
+    const problemId = req.params.problem_id;
+    const problem = await getProblem(problemId);
 
-  res.render("problem/problem", {
-    problem,
-  });
+    res.status(200).render("problem/problem", {
+      problem,
+    });
+  } catch (error) {
+    next(new CustomError(error, 404));
+  }
 });
 
 router.post("/problems/:problem_id", async (req, res, next) => {
-  const code = req.body["code-mirror"];
-  console.log(code)
+  try {
+    const problemId = req.params.problem_id;
+    const enteredCode = req.body["code-mirror"];
+    const tests = (await getProblem(problemId)).tests;
+    const solution = new Function(`return ${enteredCode}`)();
+
+    let isPassed;
+    let failCase;
+    let wrongAnswer;
+    let rightAnswer;
+
+    for (const test of tests) {
+      const userSubmission = new Function("solution", `return ${test.code}`)(solution);
+
+      if (test.solution === userSubmission) {
+        isPassed = true;
+      } else {
+        isPassed = false;
+        failCase = test.code;
+        wrongAnswer = `${userSubmission}`;
+        rightAnswer = test.solution;
+        break;
+      }
+    }
+
+    if (isPassed) {
+      res.status(200).render("problem/success");
+    } else {
+      res.status(200).render("problem/failure", {
+        failCase,
+        wrongAnswer,
+        rightAnswer,
+        error: null,
+      });
+    }
+  } catch (error) {
+    next(new CustomError(error, 400, ERROR_IS_IN_SUBMISSION));
+  }
 });
 
 module.exports = router;

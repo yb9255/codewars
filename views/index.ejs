@@ -1,20 +1,16 @@
 <h1>Codewars</h1>
 <h2>코딩 전쟁이 일어난다. 모든 대원들, 전투 준비!</h2>
 
-<ul class="tabs">
-  <li>Level 1</li>
-  <li>Level 2</li>
-  <li>Level 3</li>
-</ul>
-
 <ul class="problems">
   <% problems.forEach((problem) => { %>
     <li class="problem" >
-      <div><%= problem.title %></div>
-      <div ><%= problem.description %></div>
-      <div>정답자: <%= problem.completedUsers %></div>
-      <div>난이도: Level <%= problem.difficultyLevel %></div>
-      <a href="problems/<%= problem.id %>">Move to Problem</a>
+      <form action="problems/<%= problem.id %>" method="GET">
+        <div><%= problem.title %></div>
+        <div ><%= problem.description %></div>
+        <div>정답자: <%= problem.completedUsers %></div>
+        <div>난이도: Level <%= problem.difficultyLevel %></div>
+        <button type="submit">Move to Problem</button>
+      </form>
     </li>
   <% }) %>
 </ul>

@@ -1,0 +1,10 @@
+<h1>FAIL!</h1>
+<% if (error) { %>
+  <h1><%= message %></h1>
+  <h2><%= error.status %></h2>
+  <pre><%= error.stack %></pre>
+<% } else { %>
+  <div>Fail Case: <%= failCase %></div>
+  <div>expected <%= wrongAnswer %> deeply equal to <%= rightAnswer %></div>
+<% } %>
+<button class="btn--back">Back To Problem</button>

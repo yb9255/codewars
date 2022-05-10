@@ -10,14 +10,33 @@ a {
 .problems {
   display: flex;
   flex-direction: column;
+  list-style: none;
   gap: 20px;
 }
 
-.problem {
+.problem form {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   gap: 10px;
   border: 1px solid #000;
   padding: 10px;
+  width: 700px;
+  height: 200px;
+  box-sizing: border-box;
+
+  position: relative;
+}
+
+.problem form button {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+
   cursor: pointer;
 }

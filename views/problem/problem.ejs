@@ -2,21 +2,9 @@
 <div><%= problem.description %></div>
 <div>정답자: <%= problem.completedUsers %></div>
 <div>난이도: Level <%= problem.difficultyLevel %></div>
+<div>예시 : <%= problem.tests[0].code %>
+  결과: <%= problem.tests[0].solution %></div>
 <form action="/problems/<%= problem.id %>" method="POST">
   <textarea id="code-mirror" name="code-mirror"></textarea>
-  <button type="submit"/>
+  <button type="submit">submit</button>
 </form>
-
-<script>
-  CodeMirror.fromTextArea(document.querySelector("#code-mirror"), {
-    lineNumbers: true,
-    tabSize: 2,
-    value: "let a = 'b'",
-    mode: 'javascript',
-  });
-
-
-  document.querySelector('submit', (event) => {
-
-  })
-</script>
