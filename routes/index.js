@@ -1,14 +1,19 @@
 const express = require("express");
 const CustomError = require("../utils/CustomError");
 const { ERROR_IS_IN_SUBMISSION } = require("../utils/config");
+
 const {
   getAllProblems,
   getProblem,
 } = require("../controllers/problems.controller");
 
+const {
+  isLoggedIn
+} = require("../utils/passport-config");
+
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const problems = await getAllProblems();
 

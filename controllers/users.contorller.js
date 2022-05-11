@@ -1,8 +1,8 @@
-const users = require("../models/User");
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 async function getUser(id) {
-  return await users.findOne({ userId: id });
+  return await User.findOne({ id });
 }
 
 async function registerNewUser(newId, newPassword) {
@@ -11,14 +11,13 @@ async function registerNewUser(newId, newPassword) {
   if (hasSameId) return;
 
   const hashedPassword = await bcrypt.hash(newPassword, 10);
-  console.log(hashedPassword);
 
   const newUser = {
-    userId: newId,
+    id: newId,
     password: hashedPassword,
   }
 
-  await new users(newUser).save();
+  await new User(newUser).save();
 }
 
 module.exports = {

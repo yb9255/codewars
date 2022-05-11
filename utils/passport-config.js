@@ -1,39 +1,49 @@
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const LocalStrategy = require("passport-local").Strategy;
-const { getUser } = require("../controllers/users.contorller");
 
-async function initializePassport(passport) {
-  const authenticateUser = async (userId, password, done) => {
-    const user = getUser(userId);
-
-    if (!user) {
-      return done(null, false, { message: "No user with that Id"});
-    }
-
-    try {
-      const isSamePwd = await bcrypt.compare(password, user.password);
-      if (isSamePwd) {
-        return done(null, user);
-      } else {
-        return done(null, false, { message: "password incorrect" });
-      }
-    } catch (error) {
+async function getLocalStrategy (id, password, done) {
+  await User.findOne({ id }, async (error, user) => {
+    if (error) {
       return done(error);
     }
-  }
 
+    if (!user) {
+      return done(null, false, { message: "Incorrect user id", });
+    }
 
-  passport.use(new LocalStrategy({
-    usernameField: "text",
-  },
-  authenticateUser));
+    bcrypt.compare(password, user.password, (error, res) => {
+      if (error) {
+        console.log(error);
+        return done(error);
+      }
 
-  passport.serializeUser((user, done) => done(null, user.userId));
-  passport.deserializeUser((userId, done) => {
-    return done(null, getUser(userId));
+      if (res === false ) {
+        return done(null, false, { message: "Incorrect password", });
+      }
+
+      return done(null, user);
+    });
   });
 }
 
+function isLoggedIn (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  };
+
+  res.redirect("/login");
+}
+
+function isLoggedOut (req, res, next) {
+  if (!req.isAuthenticated()) {
+    return next();
+  };
+
+  res.redirect("/");
+}
+
 module.exports = {
-  initializePassport,
+  getLocalStrategy,
+  isLoggedIn,
+  isLoggedOut,
 };

@@ -1,8 +1,6 @@
 const express = require("express");
-
-const {
-  registerNewUser,
-} = require("../controllers/users.contorller");
+const bcrypt = require("bcrypt");
+const User = require('../models/User');
 
 const router = express.Router();
 
@@ -12,13 +10,26 @@ router.get("/", (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { id: newId, password: newPassword } = req.body;
+    const { id, password } = req.body;
 
-    await registerNewUser(newId, newPassword);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    res.redirect("/login");
+    await User.findOne({ id }, async (error, doc) => {
+      if (error) throw error;
+      if (doc) return res.send("User already exists");
+
+      if (!doc) {
+        const newUser = new User({
+          id,
+          password: hashedPassword,
+        });
+
+        await newUser.save();
+
+        res.redirect("/login");
+      }
+    });
   } catch (error) {
-    console.error(error);
   }
 });
 

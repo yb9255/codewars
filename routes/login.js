@@ -1,32 +1,18 @@
 const express = require("express");
 const passport = require("passport");
 const router = express.Router();
+const { isLoggedOut } = require("../utils/passport-config")
 
-router.get("/", (req, res, next) => {
-  try {
-    res.status(200).render("login", {
-      title: "login",
-    });
-  } catch(error) {
-    console.log(error.message);
-  }
+router.get("/", isLoggedOut, (req, res, next) => {
+  res.status(200).render("login", {
+    title: "login",
+  });
 });
 
-router.post("/normal-login", passport.authenticate("local", {
+router.post("/", passport.authenticate("local", {
   successRedirect: "/",
-  failureRedirect: "/login",
-  failureFlash: true,
+  failureRedirect: "/register",
+  failureMessage: true,
 }));
-
-router.post("/social-login", (req, res, next) => {
-  try {
-    console.log("social login");
-    res.send("!");
-  } catch {
-    next({
-      error: "error",
-    })
-  }
-});
 
 module.exports = router;
