@@ -1,10 +1,33 @@
-<h1><%= problem.title %></h1>
-<div><%= problem.description %></div>
-<div>정답자: <%= problem.completedUsers %></div>
-<div>난이도: Level <%= problem.difficultyLevel %></div>
-<div>예시 : <%= problem.tests[0].code %>
-  결과: <%= problem.tests[0].solution %></div>
-<form action="/problems/<%= problem.id %>" method="POST">
-  <textarea id="code-mirror" name="code-mirror"></textarea>
-  <button type="submit">submit</button>
-</form>
+<h1 class="problem-solving-title"><%= problem.title %></h1>
+<div class="problem-solving">
+  <div class="problem-solving-left">
+    <div><%= problem.description %></div>
+    <div>정답자: <%= problem.completedUsers %></div>
+    <div>난이도: Level <%= problem.difficultyLevel %></div>
+    <div>예시 : <%= problem.tests[0].code %>
+    결과: <%= problem.tests[0].solution %></div>
+  </div>
+  <div class="problem-solving-right">
+    <h4>Solution</h4>
+    <form action="/problems/<%= problem.id %>" method="POST">
+      <textarea id="code-mirror" name="code-mirror"></textarea>
+      <button class="btn--submit" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+<div class="link-to-main">
+  <a href="/">Back To Main</a>
+</div>
+
+<script>
+  const textarea = document.querySelector("#code-mirror");
+
+  CodeMirror.fromTextArea(textarea, {
+    lineNumbers: true,
+    tabSize: 2,
+    mode: "javascript",
+    height: "100%",
+    theme: "monokai"
+  })
+  .setValue(`function solution(<%= problem.paramName %>) {\n // write your code!\n}\n`);
+</script>

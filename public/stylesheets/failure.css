@@ -1,0 +1,47 @@
+.problem-failed-head {
+  color: #ad1f1f;
+  font-size: 28px;
+}
+
+.failure-card {
+  width: 500px;
+  justify-content: center;
+}
+
+.fail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.failed-case {
+  font-size: 20px;
+}
+
+.case-description {
+  color: #ad1f1f;
+}
+
+.failure-error-card {
+  width: 600px;
+  height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  transform: translateY(-20%);
+}
+
+.failure-error-card h1 {
+  color: #ad1f1f;
+}
+
+.failure-error-content {
+  font-size: 13px;
+  line-height: 1.4;
+  width: 400px;
+  text-align: center;
+}

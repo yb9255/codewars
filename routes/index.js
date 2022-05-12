@@ -1,5 +1,6 @@
 const express = require("express");
 const CustomError = require("../utils/CustomError");
+const { VM } = require('vm2');
 const { ERROR_IS_IN_SUBMISSION } = require("../utils/config");
 
 const {
@@ -25,10 +26,12 @@ router.get("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.get("/problems/:problem_id", async (req, res, next) => {
+router.get("/problems/:problem_id", isLoggedIn, async (req, res, next) => {
   try {
     const problemId = req.params.problem_id;
     const problem = await getProblem(problemId);
+
+    console.log(problem.paramName);
 
     res.status(200).render("problem/problem", {
       problem,
@@ -38,12 +41,12 @@ router.get("/problems/:problem_id", async (req, res, next) => {
   }
 });
 
-router.post("/problems/:problem_id", async (req, res, next) => {
+router.post("/problems/:problem_id", isLoggedIn, async (req, res, next) => {
   try {
     const problemId = req.params.problem_id;
     const enteredCode = req.body["code-mirror"];
     const tests = (await getProblem(problemId)).tests;
-    const solution = new Function(`return ${enteredCode}`)();
+    const vm = new VM();
 
     let isPassed;
     let failCase;
@@ -51,7 +54,7 @@ router.post("/problems/:problem_id", async (req, res, next) => {
     let rightAnswer;
 
     for (const test of tests) {
-      const userSubmission = new Function("solution", `return ${test.code}`)(solution);
+      let userSubmission = vm.run(`${enteredCode} ${test.code}`);
 
       if (test.solution === userSubmission) {
         isPassed = true;

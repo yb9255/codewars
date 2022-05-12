@@ -1,10 +1,19 @@
-<h1>FAIL!</h1>
-<% if (error) { %>
-  <h1><%= message %></h1>
-  <h2><%= error.status %></h2>
-  <pre><%= error.stack %></pre>
-<% } else { %>
-  <div>Fail Case: <%= failCase %></div>
-  <div>expected <%= wrongAnswer %> deeply equal to <%= rightAnswer %></div>
-<% } %>
-<button class="btn--back">Back To Problem</button>
+<section>
+  <% if (error) { %>
+  <div class="failure-error-card">
+    <h1><%= message %></h1>
+    <h4><%= error.status %> status</h4>
+    <span class="failure-error-content"><%= error.stack %></span>
+    <button class="btn--back">Back to the problem</button>
+  </div>
+  <% } else { %>
+  <div class="card failure-card">
+    <h1 class="problem-failed-head">FAIL!</h1>
+    <div class="fail-content">
+      <div class="failed-case">Case: <%= failCase %></div>
+      <div class="case-description">expected "<%= wrongAnswer %>"" deeply equal to "<%= rightAnswer %>"</div>
+    </div>
+  <button class="btn--back">Back to the problem</button>
+  </div>
+  <% } %>
+</section>

@@ -17,7 +17,8 @@
         "code": "solution(1)",
         "solution": 1
       }
-    ]
+    ],
+    "paramName": "num"
   },
   {
     "title": "서울에서 김서방 찾기",
@@ -33,7 +34,8 @@
         "code": "solution(['Jane', 'Huh', 'Kim'])",
         "solution": "김서방은 2에 있다"
       }
-    ]
+    ],
+    "paramName": "arr"
   },
   {
     "title": "수박수박수박수박수",
@@ -49,7 +51,8 @@
         "code": "solution(4)",
         "solution": "수박수박"
       }
-    ]
+    ],
+    "paramName": "num"
   },
   {
     "title": "하샤드 수",
@@ -65,6 +68,7 @@
         "code": "solution(11)",
         "solution": false
       }
-    ]
+    ],
+    "paramName": "num"
   }
 ]

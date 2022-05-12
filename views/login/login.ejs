@@ -1,0 +1,16 @@
+<section class="login-section">
+  <div class="card">
+    <% if (messages.error) { %>
+      <div class="login-error"><%= messages.error %></div>
+    <% } %>
+    <form class="card-form" action="/login" method="POST">
+      <h1>Login</h1>
+      <div class="user-input-fields">
+        <input type="text" class="input--id" name="id" placeholder="ID" required />
+        <input type="password" class="input--password" name="password" placeholder="Password" required />
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
+    <div><a href="/register">Sign Up</a> if you don't have an account yet</div>
+  </div>
+</section>

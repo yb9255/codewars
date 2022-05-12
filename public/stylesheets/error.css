@@ -1,0 +1,23 @@
+.error-container {
+  width: 400px;
+  height: 400px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+}
+
+.error-container h1 {
+  text-transform: uppercase;
+  color: #ad1f1f;
+  font-size: 24px;
+}
+
+.error-container h2 {
+  font-size: 20px;
+}
+
+.error-container pre {
+  word-wrap: break-word;
+}

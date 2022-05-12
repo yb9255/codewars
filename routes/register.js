@@ -1,11 +1,16 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const User = require('../models/User');
+const User = require("../models/User");
+const CustomError = require("../utils/CustomError");
+
+const {
+  isLoggedOut,
+} = require("../utils/passport-config");
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.render("register");
+router.get("/", isLoggedOut, (req, res, next) => {
+  res.render("register/register");
 });
 
 router.post("/", async (req, res, next) => {
@@ -14,9 +19,15 @@ router.post("/", async (req, res, next) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.findOne({ id }, async (error, doc) => {
-      if (error) throw error;
-      if (doc) return res.send("User already exists");
+    User.findOne({ id }, async (error, doc) => {
+      if (error) {
+        next(new CustomError(error, 500));
+        return;
+      }
+
+      if (doc) {
+        return res.render("register/user-exist");
+      }
 
       if (!doc) {
         const newUser = new User({
@@ -26,10 +37,11 @@ router.post("/", async (req, res, next) => {
 
         await newUser.save();
 
-        res.redirect("/login");
+        res.render("register/signup-success");
       }
     });
   } catch (error) {
+    next(new CustomError(error, 500));
   }
 });
 

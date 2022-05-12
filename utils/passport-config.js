@@ -1,10 +1,10 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-async function getLocalStrategy (id, password, done) {
-  await User.findOne({ id }, async (error, user) => {
+function getLocalStrategy (id, password, done) {
+  User.findOne({ id }, (error, user) => {
     if (error) {
-      return done(error);
+      done(new CustomError(error, 500));
     }
 
     if (!user) {
@@ -13,11 +13,10 @@ async function getLocalStrategy (id, password, done) {
 
     bcrypt.compare(password, user.password, (error, res) => {
       if (error) {
-        console.log(error);
         return done(error);
       }
 
-      if (res === false ) {
+      if (res === false) {
         return done(null, false, { message: "Incorrect password", });
       }
 

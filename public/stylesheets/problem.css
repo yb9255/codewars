@@ -1,0 +1,63 @@
+.problem-solving-title {
+  margin-bottom: 40px;
+  padding-left: 30px;
+}
+
+.problem-solving {
+  display: flex;
+  width: 100vw;
+  padding: 30px;
+  gap: 5px;
+  box-sizing: border-box;
+}
+
+.problem-solving-left {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: 50%;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.problem-solving-right {
+  width: 50%;
+}
+
+.problem-solving-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.btn--submit {
+  width: 150px;
+  height: 30px;
+  border: 2px solid #bb432c;
+  color: #fff;
+  background-color: #bb432c;
+  outline: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color .3s;
+}
+
+.btn--submit:hover {
+  background-color: #cf4b32;
+}
+
+.btn--submit:focus {
+  background-color: #d45d46;
+}
+
+.link-to-main {
+  width: 100%;
+  text-align: center;
+}
+
+.CodeMirror {
+  resize: vertical;
+  overflow: auto !important;
+}

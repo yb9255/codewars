@@ -1,0 +1,42 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  width: 300px;
+  height: 350px;
+  padding: 30px;
+  transform: translateY(-100px);
+  border-radius: 5px;
+
+  background-color: #222327;
+}
+
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.card-form button {
+  width: 100%;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  border: 2px solid #bb432c;
+  background-color: #bb432c;
+  color: #fff;
+  font-weight: 100;
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color .3s;
+}
+
+.card-form button:hover {
+  background-color: #cf4b32;
+}
+
+.card-form button:focus {
+  background-color: #d45d46;
+}

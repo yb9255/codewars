@@ -1,0 +1,18 @@
+.problem-solved {
+  width: 100vw;
+  height: 80vh;
+  position: relative;
+}
+
+.problem-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+}

@@ -1,10 +1,19 @@
 <% if (error.status < 500) { %>
-  <h1><%= message %></h1>
-  <h2><%= error.status %></h2>
-  <pre><%= error.stack %></pre>
+<section>
+  <div class="error-container">
+    <h1><%= message %></h1>
+    <h2><%= error.status %></h2>
+    <pre><%= error.stack %></pre>
+  </div>
+  <button class="btn--back">Back To Prev Page</button>
+</section>
 <% } else { %>
-  <h1>Something went wrong..</h1>
-  <h2><%= error.status %></h2>
-  <pre>Internet Server Error</pre>
+<section>
+  <div class="error-container">
+    <h1>Something went wrong..</h1>
+    <h2><%= error.status %></h2>
+    <pre>Internet Server Error</pre>
+  </div>
+  <button class="btn--back">Back To Prev Page</button>
+</section>
 <% } %>
-<button class="btn--back">Back To Prev Page</button>

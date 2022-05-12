@@ -11,6 +11,7 @@ const ProblemSchema = new mongoose.Schema({
   difficultyLevel: Number,
   description: String,
   tests: [Object],
+  paramName: String,
 });
 
 module.exports = mongoose.model("Problem", ProblemSchema);

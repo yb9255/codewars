@@ -9,7 +9,6 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "codemirror": "^5.65.3",
-    "connect-flash": "^0.1.1",
     "debug": "^4.3.3",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
@@ -19,7 +18,8 @@
     "express-session": "^1.17.2",
     "mongoose": "^6.3.2",
     "passport": "^0.5.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "vm2": "^3.9.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
