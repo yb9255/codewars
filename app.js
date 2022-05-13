@@ -2,15 +2,16 @@ require("dotenv").config();
 
 const path = require("path");
 const express = require("express");
-const mongoose = require("mongoose");
 const ejsLayout = require("express-ejs-layouts");
+const morgan = require("morgan");
+const { connectDB } = require("./utils/mongoose");
 
 // passport related modules start
 
 const passport = require("passport");
 const session = require("express-session");
-const LocalStrategy = require("passport-local").Strategy;
 const flash = require("express-flash");
+const LocalStrategy = require("passport-local").Strategy;
 const {
   getLocalStrategy,
 } = require("./utils/passport-config");
@@ -23,11 +24,7 @@ const register = require("./routes/register");
 
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URL);
-mongoose.connection.once("open", () => {
-  console.log("MongoDB has connected");
-});
-mongoose.connection.on("error", err => console.log(err));
+connectDB();
 
 app.use(ejsLayout);
 app.use(flash());
@@ -35,6 +32,10 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.set("views");
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -100,7 +101,7 @@ app.use(function (err, req, res, next) {
   if (err.isInSubmission) {
     res.render("problem/failure", {
       error: err,
-    })
+    });
   } else {
     res.render("error", {
       error: err,

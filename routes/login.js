@@ -13,10 +13,4 @@ router.post("/", passport.authenticate("local", {
   failureFlash: true,
 }));
 
-router.post("/github", passport.authenticate("github", {
-  successRedirect: "/",
-  failureRedirect: "/login",
-  failureFlash: true,
-}));
-
 module.exports = router;

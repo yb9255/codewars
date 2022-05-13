@@ -10,7 +10,7 @@ const {
 const router = express.Router();
 
 router.get("/", isLoggedOut, (req, res, next) => {
-  res.render("register/register");
+  res.status(200).render("register/register");
 });
 
 router.post("/", async (req, res, next) => {
@@ -26,7 +26,7 @@ router.post("/", async (req, res, next) => {
       }
 
       if (doc) {
-        return res.render("register/user-exist");
+        return res.status(400).render("register/user-exist");
       }
 
       if (!doc) {
@@ -37,7 +37,7 @@ router.post("/", async (req, res, next) => {
 
         await newUser.save();
 
-        res.render("register/signup-success");
+        res.status(200).render("register/signup-success");
       }
     });
   } catch (error) {

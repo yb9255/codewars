@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "NODE_ENV=development nodemon ./bin/www"
+    "dev": "NODE_ENV=development nodemon ./bin/www",
+    "test": "jest --watch"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -17,11 +18,19 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.17.2",
     "mongoose": "^6.3.2",
+    "morgan": "^1.10.0",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "vm2": "^3.9.9"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "forceExit": true
+  },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.2.3"
   }
 }

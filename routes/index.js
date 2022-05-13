@@ -31,8 +31,6 @@ router.get("/problems/:problem_id", isLoggedIn, async (req, res, next) => {
     const problemId = req.params.problem_id;
     const problem = await getProblem(problemId);
 
-    console.log(problem.paramName);
-
     res.status(200).render("problem/problem", {
       problem,
     });
